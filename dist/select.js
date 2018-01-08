@@ -95,6 +95,7 @@ angular.module('oi.select')
             if (event && event.target.nodeName !== 'INPUT') return; //for IE
 
             isBlur = false;
+            isFocused = false;
 
             if (isMousedown) {
                 isBlur = true;
@@ -343,7 +344,9 @@ angular.module('oi.select')
         restrict: 'AE',
         templateUrl: 'src/template.html',
         require: 'ngModel',
-        scope: {},
+        scope: {
+            onLabelClicked: '&'
+        },
         compile: function (element, attrs) {
             var optionsExp = attrs.oiOptions,
                 match = optionsExp ? optionsExp.match(NG_OPTIONS_REGEXP) : ['', 'i', '', '', '', 'i', '', '', ''];
@@ -1098,7 +1101,7 @@ angular.module('oi.select')
     return function(label) {
         var closeIcon = '<span class="close select-search-list-item_selection-remove">×</span>';
 
-        return $sce.trustAsHtml(label + closeIcon);
+        return $sce.trustAsHtml(label);
     };
 }])
 
